@@ -7,6 +7,7 @@ use teloxide::{
 };
 
 use super::{
+  api::VehicleMessageController,
   db::{dao::ConsumersDao, ConnectionStore},
   handlers::{
     build_handler,
@@ -22,8 +23,13 @@ impl Bot {
     let config = Config::from_env();
     let consumers_dao: ConsumersDaoType = Arc::new(Mutex::new(ConsumersDao::new(connection)));
     let application_config: ApplicationConfig = Arc::new(config);
+    let vehicles_controller = VehicleMessageController::default();
 
-    let deps = dptree::deps![application_config.clone(), consumers_dao.clone()];
+    let deps = dptree::deps![
+      application_config.clone(),
+      consumers_dao.clone(),
+      vehicles_controller.clone()
+    ];
     let handler = build_handler();
 
     Dispatcher::builder(bot, handler)

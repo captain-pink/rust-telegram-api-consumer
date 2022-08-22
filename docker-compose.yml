@@ -1,0 +1,19 @@
+version: '3.9'
+
+networks:
+  rust-network:
+    external:
+      name: vehicles_observer
+
+services:
+  vehicles_bot:
+    restart: always
+    build:
+      context: .
+      dockerfile: .docker/dockerfile
+    env_file:
+      - .env
+    environment:
+      VEHICLES_HOST: api
+    networks:
+      - rust-network

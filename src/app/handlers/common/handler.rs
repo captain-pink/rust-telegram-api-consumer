@@ -18,8 +18,9 @@ async fn handle(
     CommonCommands::Start => CommonService::start(msg, bot).await,
     CommonCommands::LetMeIn { username, token } => {
       let user_creds = (username.as_str(), token.as_str());
+    
       info!(
-        "Creds {}, {}, chat: {:?}",
+        "Creds: {}:{}\nfrom: {:?}",
         username.as_str(),
         token.as_str(),
         msg.from()

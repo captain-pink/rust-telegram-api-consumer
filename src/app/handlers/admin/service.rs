@@ -1,10 +1,11 @@
 use std::sync::{Arc, Mutex};
 
+use serde_json::Value;
 use teloxide::{
   prelude::AutoSend, requests::Requester, respond, types::Message, Bot, RequestError,
 };
 
-use crate::app::db::dao::ConsumersDao;
+use crate::app::{api::VehicleMessageController, db::dao::ConsumersDao};
 
 pub struct AdminService;
 
